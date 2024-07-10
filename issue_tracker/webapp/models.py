@@ -20,7 +20,7 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     # type = models.ForeignKey(Type, on_delete=models.PROTECT)
-    types = models.ManyToManyField(
+    type = models.ManyToManyField(
         Type,
         related_name="tasks",
         verbose_name="Типы",
@@ -38,7 +38,7 @@ class Task(models.Model):
         return self.summary
 
     class Meta:
-        db_table = 'tasks'
+        # db_table = 'tasks'
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
 
