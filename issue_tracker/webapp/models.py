@@ -5,12 +5,15 @@ class Status(models.Model):
 
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name_plural = 'Statuses'
 
 class Type(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
+
 
 class Task(models.Model):
     summary = models.CharField(max_length=100)
@@ -22,3 +25,4 @@ class Task(models.Model):
 
     def __str__(self):
         return self.summary
+
