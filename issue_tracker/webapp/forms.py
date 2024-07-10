@@ -8,5 +8,5 @@ class TaskForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'status': forms.Select(),
-            'type': forms.Select(),
+            'type': forms.CheckboxSelectMultiple(),
         }
