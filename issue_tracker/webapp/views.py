@@ -10,12 +10,13 @@ class TaskListView(TemplateView):
         tasks = Task.objects.all()
         return render(request, 'home.html', {'tasks': tasks})
 class TaskDetailView(TemplateView):
+    template_name = "detail_task.html"
     def dispatch(self, request, *args, **kwargs):
         self.task = get_object_or_404(Task, pk=self.kwargs['pk'])
         return super().dispatch(request, *args, **kwargs)
     def get_context_data(self, **kwargs):
         context = super(). get_context_data()
-        context['tasks'] = self.task
+        context['task'] = self.task
         return context
     # def get_template_names(self):
     #     if self.task.types.exists:

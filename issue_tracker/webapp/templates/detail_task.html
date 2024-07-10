@@ -4,9 +4,10 @@
     <h1>Product details</h1>
     <div class="card mt-3" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ task.description }}</h5>
-            <p class="card-text">{{ task.due_date|date:"Y-m-d" }}</p>
+            <h5 class="card-title">{{ task.summary }}</h5>
+            <p class="card-text">{{ task.description}}</p>
             <p class="card-text">{{ task.status }}</p>
+            <p class="card-text">{{ task.type }}</p>
             <a href="{% url 'task_list' %}" class="card-link">На главную</a>
         </div>
     </div>
