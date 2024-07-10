@@ -20,47 +20,64 @@ class TaskDetailView(TemplateView):
     # def get_template_names(self):
     #     if self.task.types.exists:
 
-def add_task(request):
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('task_list')
-    else:
+class TaskCreateView(View):
+    def dispatch(self, request, *args, **kwargs):
+        print(request.POST)
+        return super().dispatch(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
         form = TaskForm()
-    return render(request, 'add_task.html', {'form': form})
+        return render(request, 'add_task.html', {'form': form})
+    def post(self, request, *args, **kwargs):
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            task = Task.objects.create(
+                summary=form.cleaned_data['summary'],
+                description=form.cleaned_data['description'],
+            )
+            statuses = form.cleaned_data["statuses"]
+            task.statuses.set(statuses)
+            types = form.cleaned_data["types"]
+            task.types.set(types)
+            return redirect('home')
+        return render(
+            request,
+            "add_task.html",
+            {"form": form}
+        )
 
-
-def update_task(request, *args, pk, **kwargs):
-    if request.method == "GET":
-        task = get_object_or_404(Task, pk=pk)
-        form = TaskForm(initial={
-            "description": task.description,
-            "due_date": task.due_date,
-            "status": task.status,
+class TaskUpdateView(TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        self.task = get_object_or_404(Task, pk=self.kwargs['pk'])
+        return super().dispatch(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        form = TaskForm(instance=self.task, initial={
+            "summary": self.task.summary,
+            "description": self.task.description,
+            "status": self.task.status,
+            "type": self.task.type,
         })
         return render(
             request, "update_task.html",
             context={"form": form}
         )
-    else:
-        form = TaskForm(data=request.POST)
+    def post(self, request, *args, **kwargs):
+        form = TaskForm(data=request.POST, instance=self.task)
         if form.is_valid():
-            task = get_object_or_404(Task, pk=pk)
-            task.description = request.POST.get("description")
-            task.due_date = request.POST.get("due_date")
-            task.status = request.POST.get("status")
-            task.save()
+            self.task.description = request.POST.get("description")
+            self.task.due_date = request.POST.get("due_date")
+            self.task.status = request.POST.get("status")
+            self.task.save()
             return redirect("task_list")
         else:
             return render(
                 request,
                 "update_task.html",
-                {"form": form}
-            )
-def delete_task(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    if request.method == 'POST':
-        task.delete()
-        return redirect('task_list')
-    return render(request, 'delete_task.html', {'task': task})
+                {"form": form})
+
+class TaskDeleteView(TemplateView):
+     def post(self, request, *args, **kwargs):
+         task = get_object_or_404(Task, pk=self.kwargs['pk'])
+         if request.method == 'POST':
+             task.delete()
+             return redirect('task_list')
+         return render(request, 'delete_task.html', {'task': task})
