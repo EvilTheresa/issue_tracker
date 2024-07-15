@@ -59,7 +59,7 @@ class TaskUpdateView(FormView):
 
     def form_valid(self, form):
         form.save()
-        redirect("detail_task", pk=self.task.pk)
+        return redirect("detail_task", pk=self.task.pk)
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
