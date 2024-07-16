@@ -1,0 +1,13 @@
+from datetime import timedelta
+from django.utils import timezone
+from webapp.models import Task, Status, Type
+
+last_month = timezone.now() - timedelta(days=30)
+done_status = Status.objects.get(name='Done')
+done_tasks = Task.objects.filter(status=done_status, updated_at__gte=last_month)
+done_tasks
+
+status_choices = Status.objects.filter(name__in=['new', 'done'])
+type_choices = Type.objects.filter(name__in=['bug', 'task'])
+tasks_filtered = Task.objects.filter(status__in=status_choices, type__in(type_choices))
+tasks_filtered
