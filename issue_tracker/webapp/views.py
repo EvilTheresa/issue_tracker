@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views import View
 from django.views.generic import TemplateView, FormView
 
 from .models import Task
@@ -23,8 +22,6 @@ class TaskDetailView(TemplateView):
         context = super().get_context_data()
         context['task'] = self.task
         return context
-    # def get_template_names(self):
-    #     if self.task.types.exists:
 
 
 class TaskCreateView(FormView):
@@ -65,9 +62,9 @@ class TaskUpdateView(FormView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
-
 class TaskDeleteView(TemplateView):
     template_name = "delete_task.html"
+
     def post(self, request, *args, **kwargs):
         task = get_object_or_404(Task, pk=self.kwargs['pk'])
         if request.method == 'POST':
