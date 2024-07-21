@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for task in tasks %}
+                {% for task in task_list %}
                 <tr>
                     <td><a href="{% url 'detail_task' task.pk %}" class="text-decoration-none">{{ task.summary }}
                     </a></td>

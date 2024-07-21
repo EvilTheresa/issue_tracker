@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, ListView
 
 from .models import Task
 from .forms import TaskForm
 
 
-class TaskListView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        tasks = Task.objects.all()
-        return render(request, 'home.html', {'tasks': tasks})
+class TaskListView(ListView):
+    model = Task
+    template_name = 'home.html'
 
 
 class TaskDetailView(TemplateView):
