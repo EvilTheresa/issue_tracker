@@ -1,27 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-
         <h1>Project List</h1>
         <form method="get">
         {% include "partial/search_form.html" with form=search_form %}
     </form>
         <a href="{% url 'project_add' %}" class="btn btn-primary">Add Task</a>
         <table class="table">
-            <thead>
-                <tr>
-                    <th>Summary</th>
-                    <th>Status</th>
-                    <th>Type</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
             <tbody>
             {% if projects %}
                 <ul>
                 {% for project in projects %}
-                    <li>
-                        <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
-                    </li>
+                    <tr>
+                    <td><a href="{% url 'project_detail' project.pk %}" class="text-decoration-none">{{ project.name }}
+                    </a></td>
+                    <td>{{ project.start_date }}</td>
+                    <td><a href="{% url 'project_update' project.pk %}" class="btn"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="{% url 'project_delete' project.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <a href="{% url 'project_delete' project.pk %}" class="btn">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </form>
+                    </td>
+                </tr>
                 {% endfor %}
                 </ul>
         <div>
