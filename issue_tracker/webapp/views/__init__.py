@@ -1,0 +1,1 @@
+from .tasks import TaskListView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView

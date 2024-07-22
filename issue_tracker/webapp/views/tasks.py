@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, FormView, ListView
 
-from .models import Task
-from .forms import TaskForm
+from ..models import Task
+from ..forms import TaskForm
 
 
 class TaskListView(ListView):
     model = Task
-    template_name = 'home.html'
+    template_name = 'tasks/home.html'
 
 
 class TaskDetailView(TemplateView):
-    template_name = "detail_task.html"
+    template_name = "tasks/detail_task.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.task = get_object_or_404(Task, pk=self.kwargs['pk'])
@@ -24,7 +24,7 @@ class TaskDetailView(TemplateView):
 
 
 class TaskCreateView(FormView):
-    template_name = "add_task.html"
+    template_name = "tasks/add_task.html"
     form_class = TaskForm
 
     def form_valid(self, form):
@@ -33,7 +33,7 @@ class TaskCreateView(FormView):
 
 
 class TaskUpdateView(FormView):
-    template_name = "update_task.html"
+    template_name = "tasks/update_task.html"
     form_class = TaskForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -62,11 +62,11 @@ class TaskUpdateView(FormView):
 
 
 class TaskDeleteView(TemplateView):
-    template_name = "delete_task.html"
+    template_name = "tasks/delete_task.html"
 
     def post(self, request, *args, **kwargs):
         task = get_object_or_404(Task, pk=self.kwargs['pk'])
         if request.method == 'POST':
             task.delete()
             return redirect('task_list')
-        return render(request, 'delete_task.html', {'task': task})
+        return render(request, 'tasks/delete_task.html', {'task': task})
