@@ -1,23 +1,7 @@
 from django.db import models
-
 from .projects import Project
-
-
-class Status(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Statuses'
-
-
-class Type(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.name
+from .statuses import Status
+from .types import Type
 
 
 class Task(models.Model):
@@ -25,7 +9,7 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     type = models.ManyToManyField(
-        Type,
+        "Type",
         related_name="tasks",
         verbose_name="Типы",
         blank=True,
