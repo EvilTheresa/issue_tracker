@@ -1,5 +1,7 @@
 from django.db import models
 
+from .projects import Project
+
 
 class Status(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -30,6 +32,7 @@ class Task(models.Model):
         through='TaskType',
         through_fields=("task", "type"),
     )
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
