@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'base.html' %}
+{% block content %}
     <title>Project Detail</title>
-</head>
 <body>
     <h1>{{ project.name }}</h1>
     <p>{{ project.description }}</p>
@@ -27,4 +25,4 @@
         <p>No tasks found for this project</p>
     {% endif %}
 </body>
-</html>
+{% endblock %}
