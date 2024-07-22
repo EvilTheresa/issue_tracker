@@ -1,8 +1,9 @@
 from django.db.models import Q
+from django.urls import reverse_lazy
 from django.utils.http import urlencode
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
-from ..forms import SearchForm
+from ..forms import SearchForm, ProjectForm
 from ..models import Task
 from ..models.projects import Project
 
@@ -52,3 +53,10 @@ class ProjectDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['tasks'] = Task.objects.filter(project=self.object)
         return context
+
+
+class ProjectCreateView(CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = "projects/project_add.html"
+    success_url = reverse_lazy('project_list')
