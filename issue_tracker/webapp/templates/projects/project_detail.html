@@ -10,7 +10,7 @@
     <a href="{% url 'project_delete' project.pk %}" class="btn btn-primary">Delete Project</a>
 
     <h2>Tasks</h2>
-{#    <a href="{% url 'add_task' project.pk %}">Add Task</a>#}
+    <a href="{% url 'add_task' project.pk %}" class="btn btn-primary">Add Task</a>
     {% if tasks %}
         <ul>
             {% for task in tasks %}
@@ -19,10 +19,13 @@
                     <div class="card-body">
                         <tr>
                             <td><a href="{% url 'detail_task' task.pk %}"
-                                   class="text-decoration-none">{{ task.summary }}
+                                   class="text-decoration-none card-title">{{ task.summary }}
                             </a></td>
+                            <br>
                             <td>{{ task.status }}</td>
+                            <br>
                             <td>{{ task.type }}</td>
+                            <br>
                             <td><a href="{% url 'update_task' task.pk %}" class="btn"><i
                                     class="fa-solid fa-pen-to-square"></i></a>
                                 <form action="{% url 'delete_task' task.pk %}" method="post" style="display:inline;">

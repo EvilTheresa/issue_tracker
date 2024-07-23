@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 from .projects import Project
 from .statuses import Status
 from .types import Type
@@ -23,6 +25,8 @@ class Task(models.Model):
     def __str__(self):
         return self.summary
 
+    def get_absolute_url(self):
+        return reverse("webapp:task_detail", kwargs={"pk": self.pk})
     class Meta:
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
