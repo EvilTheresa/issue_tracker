@@ -4,25 +4,31 @@
         <form method="get">
         {% include "partial/search_form.html" with form=search_form %}
     </form>
-        <a href="{% url 'project_add' %}" class="btn btn-primary">Add Task</a>
+        <a href="{% url 'project_add' %}" class="btn btn-primary">Add Project</a>
         <table class="table">
             <tbody>
             {% if projects %}
                 <ul>
                 {% for project in projects %}
-                    <tr>
-                    <td><a href="{% url 'project_detail' project.pk %}" class="text-decoration-none">{{ project.name }}
-                    </a></td>
-                    <td>{{ project.start_date }}</td>
-                    <td><a href="{% url 'project_update' project.pk %}" class="btn"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form action="{% url 'project_delete' project.pk %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <a href="{% url 'project_delete' project.pk %}" class="btn">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </form>
-                    </td>
-                </tr>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card mt-3 text-center" style="width: 18rem;">
+                            <div class="card-body">
+                                    <a class="card-title" href="{% url 'project_detail' project.pk %}" class="text-decoration-none">{{ project.name }}
+                                    </a>
+                                    <br>
+                                    {{ project.start_date }}
+                                    <br>
+                                    <a href="{% url 'project_update' project.pk %}" class="btn"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <form action="{% url 'project_delete' project.pk %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        <a href="{% url 'project_delete' project.pk %}" class="btn">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+
                 {% endfor %}
                 </ul>
         <div>
