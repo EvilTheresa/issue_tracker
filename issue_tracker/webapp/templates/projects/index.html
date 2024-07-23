@@ -30,25 +30,8 @@
                     </div>
 
                 {% endfor %}
-                </ul>
-        <div>
-            <span>Page {{ projects.number }} of {{ projects.paginator.num_pages }}</span>
-        </div>
-        <div>
-            {% if projects.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ projects.previous_page_number }}">previous</a>
-            {% endif %}
-            <span>Page {{ projects.number }} of {{ projects.paginator.num_pages }}</span>
-            {% if projects.has_next %}
-                <a href="?page={{ projects.next_page_number }}">next</a>
-                <a href="?page={{ projects.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </div>
+          
     {% else %}
         <p>No projects found</p>
     {% endif %}
-            {% if is_paginated %}
-                {% include "partial/pagination.html" %}
-            {% endif %}
 {% endblock %}
