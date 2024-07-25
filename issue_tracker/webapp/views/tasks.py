@@ -24,7 +24,7 @@ class TaskDetailView(TemplateView):
         return context
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     template_name = "tasks/add_task.html"
     form_class = TaskForm
 
@@ -36,7 +36,7 @@ class TaskCreateView(CreateView):
         return redirect("webapp:project_detail", pk=self.kwargs['pk'])
 
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "tasks/update_task.html"
@@ -46,7 +46,7 @@ class TaskUpdateView(UpdateView):
         return reverse_lazy('webapp:project_detail', kwargs={'pk': self.object.project.pk})
 
 
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "tasks/delete_task.html"
     context_object_name = 'task'
