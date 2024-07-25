@@ -33,7 +33,7 @@ class TaskCreateView(CreateView):
         task = form.save(commit=False)
         task.project = project
         task.save()
-        return redirect("project_detail", pk=self.kwargs['pk'])
+        return redirect("webapp:project_detail", pk=self.kwargs['pk'])
 
 
 class TaskUpdateView(UpdateView):
@@ -43,7 +43,7 @@ class TaskUpdateView(UpdateView):
     context_object_name = 'task'
 
     def get_success_url(self):
-        return reverse_lazy('project_detail', kwargs={'pk': self.object.project.pk})
+        return reverse_lazy('webapp:project_detail', kwargs={'pk': self.object.project.pk})
 
 
 class TaskDeleteView(DeleteView):
@@ -52,4 +52,4 @@ class TaskDeleteView(DeleteView):
     context_object_name = 'task'
 
     def get_success_url(self):
-        return reverse_lazy('project_detail', kwargs={'pk': self.object.project.pk})
+        return reverse_lazy('webapp:project_detail', kwargs={'pk': self.object.project.pk})

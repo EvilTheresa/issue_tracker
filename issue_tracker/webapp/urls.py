@@ -2,6 +2,8 @@ from django.urls import path
 from .views import TaskListView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView
 from .views.projects import ProjectListView, ProjectDetailView, ProjectCreateView, ProjectUpdateView, ProjectDeleteView
 
+app_name = 'webapp'
+
 urlpatterns = [
     path('project/<int:pk>/task/add/', TaskCreateView.as_view(), name='add_task'),
     path('task/<int:pk>/', TaskDetailView.as_view(), name='detail_task'),

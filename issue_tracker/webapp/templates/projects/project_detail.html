@@ -6,11 +6,11 @@
     <p>{{ project.description }}</p>
     <p>Start Date: {{ project.start_date }}</p>
     <p>End Date: {{ project.end_date }}</p>
-    <a href="{% url 'project_update' project.pk %}" class="btn btn-primary">Edit Project</a>
-    <a href="{% url 'project_delete' project.pk %}" class="btn btn-primary">Delete Project</a>
+    <a href="{% url 'webapp:project_update' project.pk %}" class="btn btn-primary">Edit Project</a>
+    <a href="{% url 'webapp:project_delete' project.pk %}" class="btn btn-primary">Delete Project</a>
 
     <h2>Tasks</h2>
-    <a href="{% url 'add_task' project.pk %}" class="btn btn-primary">Add Task</a>
+    <a href="{% url 'webapp:add_task' project.pk %}" class="btn btn-primary">Add Task</a>
     {% if tasks %}
         <ul>
             {% for task in tasks %}
@@ -18,7 +18,7 @@
                 <div class="card mt-3 text-center" style="width: 18rem;">
                     <div class="card-body">
                         <tr>
-                            <td><a href="{% url 'detail_task' task.pk %}"
+                            <td><a href="{% url 'webapp:detail_task' task.pk %}"
                                    class="text-decoration-none card-title">{{ task.summary }}
                             </a></td>
                             <br>
@@ -26,11 +26,11 @@
                             <br>
                             <td>{{ task.type }}</td>
                             <br>
-                            <td><a href="{% url 'update_task' task.pk %}" class="btn"><i
+                            <td><a href="{% url 'webapp:update_task' task.pk %}" class="btn"><i
                                     class="fa-solid fa-pen-to-square"></i></a>
-                                <form action="{% url 'delete_task' task.pk %}" method="post" style="display:inline;">
+                                <form action="{% url 'webapp:delete_task' task.pk %}" method="post" style="display:inline;">
                                     {% csrf_token %}
-                                    <a href="{% url 'delete_task' task.pk %}" class="btn">
+                                    <a href="{% url 'webapp:delete_task' task.pk %}" class="btn">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </form>
