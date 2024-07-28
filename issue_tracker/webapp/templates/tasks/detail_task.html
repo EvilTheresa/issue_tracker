@@ -8,7 +8,7 @@
             <p class="card-text">{{ task.description}}</p>
             <p class="card-text">{{ task.status }}</p>
             <p class="card-text">{{ task.type }}</p>
-            <a href="{% url 'task_list' %}" class="card-link">На главную</a>
+            <a href="{% url 'webapp:project_detail' task.project.pk %}" class="card-link">На главную</a>
         </div>
     </div>
 {% endblock %}
