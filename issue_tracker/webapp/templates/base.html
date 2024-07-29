@@ -36,6 +36,10 @@
                         <a class="nav-link active" aria-current="page"
                            href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Войти</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                           href="{% url 'accounts:register' %}?next={{ request.get_full_path }}">Регистрация</a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <form action="{% url 'accounts:logout' %}" method="post">
