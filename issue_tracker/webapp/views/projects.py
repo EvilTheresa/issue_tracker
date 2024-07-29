@@ -66,7 +66,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 class ProjectUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Project
     form_class = ProjectForm
-    template_name = "partial/form_task.html"
+    template_name = "projects/project_update.html"
     success_url = reverse_lazy('project_list')
     permission_required = "webapp.change_project"
 

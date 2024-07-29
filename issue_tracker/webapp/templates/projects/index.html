@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
         <h1>Project List</h1>
-        <form method="get">
-        {% include "partial/search_form.html" with form=search_form %}
-    </form>
+
         <a href="{% url 'webapp:project_add' %}" class="btn btn-primary">Add Project</a>
         <table class="table">
             <tbody>
@@ -36,7 +34,9 @@
                     </div>
 
                 {% endfor %}
-          
+            {% if is_paginated %}
+                {% include "partial/pagination.html" %}
+            {% endif %}
     {% else %}
         <p>No projects found</p>
     {% endif %}
