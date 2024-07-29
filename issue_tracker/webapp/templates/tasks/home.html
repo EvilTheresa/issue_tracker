@@ -14,14 +14,14 @@
             <tbody>
                 {% for task in task_list %}
                 <tr>
-                    <td><a href="{% url 'detail_task' task.pk %}" class="text-decoration-none">{{ task.summary }}
+                    <td><a href="{% url 'webapp:detail_task' task.pk %}" class="text-decoration-none">{{ task.summary }}
                     </a></td>
                     <td>{{ task.status }}</td>
                     <td>{{ task.type }}</td>
-                    <td><a href="{% url 'update_task' task.pk %}" class="btn"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form action="{% url 'delete_task' task.pk %}" method="post" style="display:inline;">
+                    <td><a href="{% url 'webapp:update_task' task.pk %}" class="btn"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="{% url 'webapp:delete_task' task.pk %}" method="post" style="display:inline;">
                         {% csrf_token %}
-                        <a href="{% url 'delete_task' task.pk %}" class="btn">
+                        <a href="{% url 'webapp:delete_task' task.pk %}" class="btn">
                             <i class="fa-solid fa-trash"></i>
                         </a>
                     </form>

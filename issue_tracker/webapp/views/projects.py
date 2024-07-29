@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.utils.http import urlencode
@@ -63,14 +63,23 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('project_list')
 
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Project
     form_class = ProjectForm
     template_name = "partial/form_task.html"
     success_url = reverse_lazy('project_list')
+    permission_required = "webapp.change_project"
+
+    def has_permission(self):
+        # return self.request.user.groups.filter(name="moderators").exists()
+        return super().has_permission() or self.request.user == self.get_object().user
 
 
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Project
     success_url = reverse_lazy('project_list')
     template_name = "projects/project_confirm_delete.html"
+    permission_required = "webapp.delete_project"
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().user
