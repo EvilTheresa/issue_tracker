@@ -12,7 +12,7 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     type = models.ManyToManyField(
-        "Type",
+        Type,
         related_name="tasks",
         verbose_name="Типы",
         blank=True,
@@ -40,5 +40,5 @@ class Task(models.Model):
 
 
 class TaskType(models.Model):
-    task = models.ForeignKey('Task', related_name='types_tasks', on_delete=models.CASCADE, )
-    type = models.ForeignKey('Type', related_name='tasks_types', on_delete=models.CASCADE, )
+    task = models.ForeignKey('Task', on_delete=models.CASCADE)
+    type = models.ForeignKey('Type', on_delete=models.CASCADE)

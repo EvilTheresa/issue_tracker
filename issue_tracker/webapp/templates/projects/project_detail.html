@@ -11,7 +11,6 @@
 
     <h2>Tasks</h2>
     <a href="{% url 'webapp:add_task' project.pk %}" class="btn btn-primary">Add Task</a>
-    {% if tasks %}
         <ul>
             {% for task in tasks %}
             <div class="col-12 col-md-6 col-lg-4">
@@ -24,7 +23,10 @@
                             <br>
                             <td>{{ task.status }}</td>
                             <br>
-                            <td>{{ task.type }}</td>
+                            <td>{% for type in task.type.all %}
+                                {{ type.name }}
+                                {% endfor %}
+                            </td>
                             <br>
                             <td><a href="{% url 'webapp:update_task' task.pk %}" class="btn"><i
                                     class="fa-solid fa-pen-to-square"></i></a>
@@ -39,10 +41,10 @@
                     </div>
                 </div>
             </div>
+                
+    {% empty %}
+        <p>No tasks found for this project</p>
                 {% endfor %}
         </ul>
-    {% else %}
-        <p>No tasks found for this project</p>
-    {% endif %}
 </body>
 {% endblock %}

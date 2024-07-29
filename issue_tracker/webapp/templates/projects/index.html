@@ -18,12 +18,18 @@
                                     <br>
                                     {{ project.start_date }}
                                     <br>
-                                    <a href="{% url 'webapp:project_update' project.pk %}" class="btn"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form action="{% url 'webapp:project_delete' project.pk %}" method="post" style="display:inline;">
+                                    {% if perms.webapp.change_project or request.user == project.user %}
+                                        <a href="{% url 'webapp:project_update' project.pk %}" class="btn"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    {% endif %}
+                                    {% if perms.webapp.change_project or request.user == project.user %}
+                                        <form action="{% url 'webapp:project_delete' project.pk %}" method="post" style="display:inline;">
+                                    {% endif %}        
                                         {% csrf_token %}
-                                        <a href="{% url 'webapp:project_delete' project.pk %}" class="btn">
+                                        {% if perms.webapp.change_project or request.user == project.user %}
+                                            <a href="{% url 'webapp:project_delete' project.pk %}" class="btn">
                                             <i class="fa-solid fa-trash"></i>
-                                        </a>
+                                            </a>
+                                        {% endif %}
                                     </form>
                             </div>
                         </div>
